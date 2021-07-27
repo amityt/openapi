@@ -1,607 +1,479 @@
 {
-	"info": {
-		"_postman_id": "bf767a7b-e613-4a64-8aef-291a046374fe",
-		"name": "Litmus Authentication Server",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Status",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status\", function(){\r",
-							"    pm.response.to.have.status(200)\r",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/status",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"status"
-					]
-				},
-				"description": "Helps check status of the Server"
-			},
-			"response": [
-				{
-					"name": "Status",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/status",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"status"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 23 Jul 2021 11:35:59 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "15"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"status\": \"up\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Login\", function(){\r",
-							"    pm.response.to.have.status(200)\r",
-							"    var response = pm.response.json();\r",
-							"    pm.collectionVariables.set(\"jwtToken\", response.access_token)\r",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/login",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"login"
-					]
-				},
-				"description": "Login into Auth Server"
-			},
-			"response": [
-				{
-					"name": "401",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/login",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 23 Jul 2021 11:37:19 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "117"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"error\": \"unauthorized\",\n    \"error_description\": \"The user does not have requested authorization to access this resource\"\n}"
-				},
-				{
-					"name": "200",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/login",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 23 Jul 2021 11:40:23 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "308"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjcxMjY4MjMsInJvbGUiOiJhZG1pbiIsInVpZCI6ImY4MDM2YzUxLTBkNzktNGNkNy1hN2QwLTQ1ZGNhZGI4MGVlYiIsInVzZXJuYW1lIjoiYWRtaW4ifQ.zNIMwocHgmguwtGFupV54UfcfwEdaRO1_xB2ilalqn0fp-JE0ujkHT3gDyepnEGSRm2j1eTopPgtvyRVPb7gGA\",\n    \"expires_in\": 86400,\n    \"type\": \"Bearer\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Get all Users",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/users",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "200",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/users",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 23 Jul 2021 11:42:41 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "108"
-						}
-					],
-					"cookie": [],
-					"body": "[\n    {\n        \"_id\": \"f8036c51-0d79-4cd7-a7d0-45dcadb80eeb\",\n        \"username\": \"admin\",\n        \"role\": \"admin\",\n        \"created_at\": \"1627040098\"\n    }\n]"
-				}
-			]
-		},
-		{
-			"name": "Update Password",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"old_password\": \"admin\",\r\n    \"new_password\": \"litmus\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/update/password",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"update",
-						"password"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "200",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"old_password\": \"admin\",\r\n    \"new_password\": \"litmus\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/update/password",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"update",
-								"password"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 23 Jul 2021 11:44:06 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "37"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"password has been reset\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Create User",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"test1\",\r\n    \"password\": \"test1\",\r\n    \"role\": \"admin\",\r\n    \"email\": \"test1@litmus.com\",\r\n    \"name\": \"Test Account\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/create",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"create"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "200",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"test1\",\r\n    \"password\": \"test1\",\r\n    \"role\": \"admin\",\r\n    \"email\": \"test1@litmus.com\",\r\n    \"name\": \"Test Account\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/create",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"create"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 23 Jul 2021 11:46:39 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "155"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"_id\": \"5873815a-1535-4b1c-8766-2fe53c726276\",\n    \"username\": \"test1\",\n    \"email\": \"test1@litmus.com\",\n    \"name\": \"Test Account\",\n    \"role\": \"admin\",\n    \"created_at\": \"1627040799\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Reset Password",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"test1\",\r\n    \"new_password\": \"test2\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/reset/password",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"reset",
-						"password"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "200",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"test1\",\r\n    \"new_password\": \"test2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/reset/password",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"reset",
-								"password"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 23 Jul 2021 11:47:28 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "50"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"message\": \"password has been reset successfully\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Update User Details",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Administrator\",\r\n    \"email\": \"admin@litmus.com\",\r\n    \"role\": \"admin\",\r\n    \"username\": \"admin\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/update/details",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"update",
-						"details"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "200",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Administrator\",\r\n    \"email\": \"admin@litmus.com\",\r\n    \"role\": \"admin\",\r\n    \"username\": \"admin\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/update/details",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"update",
-								"details"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 23 Jul 2021 11:50:31 GMT"
-						},
-						{
-							"key": "Content-Length",
-							"value": "130"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"_id\": \"f8036c51-0d79-4cd7-a7d0-45dcadb80eeb\",\n    \"username\": \"admin\",\n    \"email\": \"admin@litmus.com\",\n    \"name\": \"Administrator\",\n    \"role\": \"admin\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Update User State",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"\": \"\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/updatestate",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"updatestate"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"auth": {
-		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "{{jwtToken}}",
-				"type": "string"
-			}
-		]
-	},
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "url",
-			"value": "http://localhost:3000"
-		},
-		{
-			"key": "jwtToken",
-			"value": ""
-		}
-	]
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Litmus Authentication Server",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "localhost:3000"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Status",
+        "description": "Helps check status of the Server",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 23 Jul 2021 11:35:59 GMT"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "15"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "status": "up"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Login",
+        "description": "Login into Auth Server",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "username": "admin",
+                  "password": "admin"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 23 Jul 2021 11:40:23 GMT"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "308"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "access_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjcxMjY4MjMsInJvbGUiOiJhZG1pbiIsInVpZCI6ImY4MDM2YzUxLTBkNzktNGNkNy1hN2QwLTQ1ZGNhZGI4MGVlYiIsInVzZXJuYW1lIjoiYWRtaW4ifQ.zNIMwocHgmguwtGFupV54UfcfwEdaRO1_xB2ilalqn0fp-JE0ujkHT3gDyepnEGSRm2j1eTopPgtvyRVPb7gGA",
+                  "expires_in": 86400,
+                  "type": "Bearer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 23 Jul 2021 11:37:19 GMT"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "117"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": "unauthorized",
+                  "error_description": "The user does not have requested authorization to access this resource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Get all Users",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 23 Jul 2021 11:42:41 GMT"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "108"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": [
+                  {
+                    "_id": "f8036c51-0d79-4cd7-a7d0-45dcadb80eeb",
+                    "username": "admin",
+                    "role": "admin",
+                    "created_at": "1627040098"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update/password": {
+      "post": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Update Password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "username": "admin",
+                  "old_password": "admin",
+                  "new_password": "litmus"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 23 Jul 2021 11:44:06 GMT"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "37"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "password has been reset"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create": {
+      "post": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Create User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "username": "test1",
+                  "password": "test1",
+                  "role": "admin",
+                  "email": "test1@litmus.com",
+                  "name": "Test Account"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 23 Jul 2021 11:46:39 GMT"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "155"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "5873815a-1535-4b1c-8766-2fe53c726276",
+                  "username": "test1",
+                  "email": "test1@litmus.com",
+                  "name": "Test Account",
+                  "role": "admin",
+                  "created_at": "1627040799"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reset/password": {
+      "post": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Reset Password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "username": "test1",
+                  "new_password": "test2"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 23 Jul 2021 11:47:28 GMT"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "50"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "password has been reset successfully"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update/details": {
+      "post": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Update User Details",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "Administrator",
+                  "email": "admin@litmus.com",
+                  "role": "admin",
+                  "username": "admin"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 23 Jul 2021 11:50:31 GMT"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "130"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "_id": "f8036c51-0d79-4cd7-a7d0-45dcadb80eeb",
+                  "username": "admin",
+                  "email": "admin@litmus.com",
+                  "name": "Administrator",
+                  "role": "admin"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/updatestate": {
+      "post": {
+        "tags": [
+          "default"
+        ],
+        "summary": "Update User State",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  }
 }
